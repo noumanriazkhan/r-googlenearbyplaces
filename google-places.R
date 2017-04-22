@@ -25,7 +25,7 @@ for(i in 1:length(k)) #Looping over results to scrape POI details
   {
   tryCatch(
     {
-  url <- paste0("https://maps.googleapis.com/maps/api/place/details/json?placeid=",k[i],"&key=AIzaSyCl64pRcwBkUaqyscGDcQlkNOyHk8gPg0o")
+  url <- paste0("https://maps.googleapis.com/maps/api/place/details/json?placeid=",k[i],"&key=[your key here]")
   page <- fromJSON(url)
   
   phone <- page$result$international_phone_number
@@ -53,15 +53,3 @@ for(i in 1:length(k)) #Looping over results to scrape POI details
 
 #Saving results
 write.table(fdata, "places.txt", sep="\t", col.names = TRUE, quote = FALSE, row.names = FALSE,na="")
-
-res <- as.list(res)
-for(i in 1:10)
-{
-
-      url <- paste0("https://maps.googleapis.com/maps/api/place/details/json?placeid=",k[i],"&key=AIzaSyCl64pRcwBkUaqyscGDcQlkNOyHk8gPg0o")
-      page <- fromJSON(url)
-      res[i] <- page$result
-}
-
-tryCatch(
-  {cbind.data.frame(page$result$name,page$result$international_phone_number,page$result$formatted_address,t(page$result$opening_hours$weekday_text))} , error=function(e){})
