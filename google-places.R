@@ -2,7 +2,7 @@ library(jsonlite)
 library(plyr)
 
 #Initializing Google Maps' API url
-url <- "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=18.4517443,-70.750141&radius=50000&key=AIzaSyCl64pRcwBkUaqyscGDcQlkNOyHk8gPg0o"
+url <- "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=18.4517443,-70.750141&radius=50000&key=[your key here]"
 page <- fromJSON(url) #Scrapping results of first page
 
 r<- NULL #Saving results
@@ -10,7 +10,7 @@ r<- NULL #Saving results
 #Now looping over to scrape all the results
 repeat{
   r <- c(r,page$results$place_id)
-  url <- paste0("https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=",page$next_page_token,"&key=AIzaSyCl64pRcwBkUaqyscGDcQlkNOyHk8gPg0o")
+  url <- paste0("https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=",page$next_page_token,"&key=[your key here]")
   page <- fromJSON(url)
   print(length(r))
   if(length(page$next_page_token)==0)
